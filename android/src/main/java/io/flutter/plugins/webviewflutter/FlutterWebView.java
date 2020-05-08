@@ -176,6 +176,7 @@ public class FlutterWebView implements PlatformView, MethodCallHandler {
                 break;
             case "takeScreenshot":
                 takeScreenShot(methodCall, result);
+                break;
             default:
                 result.notImplemented();
         }
