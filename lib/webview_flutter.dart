@@ -25,6 +25,8 @@ enum JavascriptMode {
   unrestricted,
 }
 
+enum CompressFormat { JPEG, PNG, WEBP }
+
 /// A message that was sent by JavaScript code running in a [WebView].
 class JavascriptMessage {
   /// Constructs a JavaScript message object.
