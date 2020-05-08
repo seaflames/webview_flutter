@@ -25,7 +25,7 @@ class MethodChannelWebViewPlatform implements WebViewPlatformController {
   final MethodChannel _channel;
 
   static const MethodChannel _cookieManagerChannel =
-  MethodChannel('plugins.flutter.io/cookie_manager');
+      MethodChannel('plugins.flutter.io/cookie_manager');
 
   Future<bool> _onMethodCall(MethodCall call) async {
     switch (call.method) {
@@ -54,11 +54,11 @@ class MethodChannelWebViewPlatform implements WebViewPlatformController {
             errorType: call.arguments['errorType'] == null
                 ? null
                 : WebResourceErrorType.values.firstWhere(
-                  (WebResourceErrorType type) {
-                return type.toString() ==
-                    '$WebResourceErrorType.${call.arguments['errorType']}';
-              },
-            ),
+                    (WebResourceErrorType type) {
+                      return type.toString() ==
+                          '$WebResourceErrorType.${call.arguments['errorType']}';
+                    },
+                  ),
           ),
         );
         return null;
@@ -70,18 +70,20 @@ class MethodChannelWebViewPlatform implements WebViewPlatformController {
   }
 
   @override
-  Future<Uint8List> takeScreenshot(CompressFormat compressFormat,
-      int quality) async {
+  Future<Uint8List> takeScreenshot(
+      CompressFormat compressFormat, int quality) async {
     assert(quality >= 0 && quality <= 100);
     return _channel.invokeMethod('takeScreenshot', <String, dynamic>{
-      'compressFormat': compressFormat.toString(),
+      'compressFormat': compressFormat.toString().split('.').last,
       'quality': quality
     });
   }
 
   @override
-  Future<void> loadUrl(String url,
-      Map<String, String> headers,) async {
+  Future<void> loadUrl(
+    String url,
+    Map<String, String> headers,
+  ) async {
     assert(url != null);
     return _channel.invokeMethod<void>('loadUrl', <String, dynamic>{
       'url': url,
@@ -208,6 +210,4 @@ class MethodChannelWebViewPlatform implements WebViewPlatformController {
       'autoMediaPlaybackPolicy': creationParams.autoMediaPlaybackPolicy.index,
     };
   }
-
-
 }
