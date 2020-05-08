@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -24,6 +25,8 @@ enum JavascriptMode {
   /// JavaScript execution is not restricted.
   unrestricted,
 }
+
+enum CompressFormat { JPEG, PNG, WEBP }
 
 /// A message that was sent by JavaScript code running in a [WebView].
 class JavascriptMessage {
@@ -530,6 +533,13 @@ class WebViewController {
   WebSettings _settings;
 
   WebView _widget;
+
+  Future<Uint8List> takeScreenshot(
+    CompressFormat compressFormat,
+    int quality,
+  ) async {
+    return _webViewPlatformController.takeScreenshot(compressFormat, quality);
+  }
 
   /// Loads the specified URL.
   ///
